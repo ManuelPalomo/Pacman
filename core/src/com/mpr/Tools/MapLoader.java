@@ -24,8 +24,8 @@ public class MapLoader {
 
     public Cell[][] getCellMap() {
         Cell[][] cellMap = initializeCellArray();
-        fillCellMapWithLayer(cellMap, 2, Cell.WALL);
         fillCellMapWithLayer(cellMap, 3, Cell.COIN);
+        fillCellMapWithLayer(cellMap, 2, Cell.WALL);
         return cellMap;
     }
 
@@ -47,7 +47,7 @@ public class MapLoader {
         for (MapObject object : objects) {
             float positionX = (Float) object.getProperties().get("x");
             float positionY = (Float) object.getProperties().get("y");
-            cellMap[(int) (positionX / Constants.TILESIZE)][(int) (positionY / Constants.TILESIZE)] = cell;
+            cellMap[Math.round(positionX / Constants.TILESIZE)][Math.round(positionY / Constants.TILESIZE)] = cell;
         }
     }
 
