@@ -1,6 +1,8 @@
 package com.mpr.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -15,9 +17,10 @@ import com.mpr.PacmanGame;
 import com.mpr.Tools.Cell;
 import com.mpr.Tools.Constants;
 import com.mpr.Tools.MapLoader;
+import com.mpr.actors.Movement;
 import com.mpr.actors.Pacman;
 
-public class Play implements Screen {
+public class Play extends InputAdapter implements Screen {
     private PacmanGame game;
     private OrthographicCamera camera;
     private Viewport gamePort;
@@ -54,7 +57,28 @@ public class Play implements Screen {
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(this);
 
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        switch (keycode) {
+            case Input.Keys.RIGHT:
+                pacman.changeMovement(Movement.RIGHT);
+                break;
+            case Input.Keys.LEFT:
+                pacman.changeMovement(Movement.LEFT);
+                break;
+            case Input.Keys.UP:
+                pacman.changeMovement(Movement.UP);
+                break;
+            case Input.Keys.DOWN:
+                pacman.changeMovement(Movement.DOWN);
+                break;
+        }
+
+        return true;
     }
 
     @Override
