@@ -44,13 +44,13 @@ public class Play extends InputAdapter implements Screen {
 
         coin = new Texture("coin.png");
 
-        stage = new Stage(gamePort, game.batch);
-        pacman = new Pacman(32f, 24f);
-        stage.addActor(pacman);
-
         MapLoader loader = new MapLoader("pacman.tmx");
         map = loader.getTiledMap();
         cellMap = loader.getCellMap();
+
+        stage = new Stage(gamePort, game.batch);
+        pacman = new Pacman(32f, 24f,cellMap);
+        stage.addActor(pacman);
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map, game.batch);
     }

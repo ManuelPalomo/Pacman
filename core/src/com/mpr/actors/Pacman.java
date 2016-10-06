@@ -2,16 +2,21 @@ package com.mpr.actors;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.mpr.Tools.Constants;
+import com.mpr.Tools.Cell;
 
 public class Pacman extends Actor {
     private Texture texture;
     private Movement movement;
+    private Cell[][] cellMap;
 
 
-    public Pacman(float x, float y) {
+    public Pacman(float x, float y, Cell[][] cellMap) {
         this.setX(x);
         this.setY(y);
+        this.cellMap = cellMap;
         texture = new Texture("pacman.png");
         movement = movement.STILL;
     }
@@ -20,37 +25,54 @@ public class Pacman extends Actor {
         this.movement = movement;
     }
 
+    public Vector2 getCurrentCell() {
+        return new Vector2(((this.getX()) / Constants.TILESIZE), ((this.getY()) / Constants.TILESIZE));
+    }
+
     private void move() {
+        Vector2 position = getCurrentCell();
+        int x = Math.round(position.x);
+        int y = Math.round(position.y);
+
         switch (this.movement) {
             case UP:
-                moveUp();
+                if (cellMap[x][y + 1] != Cell.WALL) {
+                    moveUp();
+                }
                 break;
             case DOWN:
-                moveDown();
+                if (cellMap[x][y - 1] != Cell.WALL) {
+                    moveDown();
+                }
                 break;
             case RIGHT:
-                moveRight();
+                if (cellMap[x + 1][y] != Cell.WALL) {
+                    moveRight();
+                }
                 break;
             case LEFT:
-                moveLeft();
+                if (cellMap[x - 1][y] != Cell.WALL) {
+                    moveLeft();
+                }
                 break;
         }
+
     }
 
     private void moveRight() {
-        this.setX(this.getX() + 1.33f);
+        this.setX(this.getX() + Constants.PACMAN_SPEED);
     }
 
     private void moveLeft() {
-        this.setX(this.getX() - 1.33f);
+        this.setX(this.getX() - Constants.PACMAN_SPEED);
     }
 
     private void moveUp() {
-        this.setY(this.getY() + 1.33f);
+        this.setY(this.getY() + Constants.PACMAN_SPEED);
     }
 
     private void moveDown() {
-        this.setY(this.getY() - 1.33f);
+        this.setY(this.getY() - Constants.PACMAN_SPEED);
     }
 
 
@@ -62,6 +84,7 @@ public class Pacman extends Actor {
 
     @Override
     public void draw(Batch batch, float alpha) {
+
         batch.draw(texture, this.getX(), this.getY());
     }
 }
