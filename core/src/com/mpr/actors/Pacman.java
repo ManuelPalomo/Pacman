@@ -25,35 +25,33 @@ public class Pacman extends Actor {
         this.movement = movement;
     }
 
-    public Vector2 getCurrentCell() {
-        int x=(int)(getX()+4)/Constants.TILESIZE;
-        int y=(int)(getY()+4)/Constants.TILESIZE;
-
-      return new Vector2(x,y);
-    }
-
     private void move() {
-       Vector2 position = getCurrentCell();
-        int x = (int)position.x;
-        int y = (int)position.y;
-
+        int x, y;
         switch (this.movement) {
             case UP:
+                x = (int) this.getX() / Constants.TILESIZE;
+                y = (int) (this.getY()) / Constants.TILESIZE;
                 if (cellMap[x][y + 1] != Cell.WALL) {
                     moveUp();
                 }
                 break;
             case DOWN:
+                x = (int) this.getX() / Constants.TILESIZE;
+                y = (int) (this.getY() + 7) / Constants.TILESIZE;
                 if (cellMap[x][y - 1] != Cell.WALL) {
                     moveDown();
                 }
                 break;
             case RIGHT:
-                if (cellMap[x+1][y] != Cell.WALL) {
+                x = (int) (this.getX()) / Constants.TILESIZE;
+                y = (int) this.getY() / Constants.TILESIZE;
+                if (cellMap[x + 1][y] != Cell.WALL) {
                     moveRight();
                 }
                 break;
             case LEFT:
+                x = (int) (this.getX() + 7) / Constants.TILESIZE;
+                y = (int) (this.getY()) / Constants.TILESIZE;
                 if (cellMap[x - 1][y] != Cell.WALL) {
                     moveLeft();
                 }
