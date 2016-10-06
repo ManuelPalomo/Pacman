@@ -26,13 +26,16 @@ public class Pacman extends Actor {
     }
 
     public Vector2 getCurrentCell() {
-        return new Vector2(((this.getX()) / Constants.TILESIZE), ((this.getY()) / Constants.TILESIZE));
+        int x=(int)(getX()+4)/Constants.TILESIZE;
+        int y=(int)(getY()+4)/Constants.TILESIZE;
+
+      return new Vector2(x,y);
     }
 
     private void move() {
-        Vector2 position = getCurrentCell();
-        int x = Math.round(position.x);
-        int y = Math.round(position.y);
+       Vector2 position = getCurrentCell();
+        int x = (int)position.x;
+        int y = (int)position.y;
 
         switch (this.movement) {
             case UP:
@@ -46,7 +49,7 @@ public class Pacman extends Actor {
                 }
                 break;
             case RIGHT:
-                if (cellMap[x + 1][y] != Cell.WALL) {
+                if (cellMap[x+1][y] != Cell.WALL) {
                     moveRight();
                 }
                 break;
