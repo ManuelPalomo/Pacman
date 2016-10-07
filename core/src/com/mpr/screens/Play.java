@@ -14,11 +14,11 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mpr.PacmanGame;
-import com.mpr.Tools.Cell;
+import com.mpr.Tools.map.Cell;
 import com.mpr.Tools.Constants;
-import com.mpr.Tools.MapLoader;
-import com.mpr.actors.Movement;
-import com.mpr.actors.Pacman;
+import com.mpr.Tools.map.MapLoader;
+import com.mpr.actors.Direction;
+import com.mpr.actors.pacman.Pacman;
 
 public class Play extends InputAdapter implements Screen {
     private PacmanGame game;
@@ -49,7 +49,7 @@ public class Play extends InputAdapter implements Screen {
         cellMap = loader.getCellMap();
 
         stage = new Stage(gamePort, game.batch);
-        pacman = new Pacman(32f, 24f,cellMap);
+        pacman = new Pacman(32f, 24f, cellMap);
         stage.addActor(pacman);
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map, game.batch);
@@ -58,23 +58,22 @@ public class Play extends InputAdapter implements Screen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(this);
-
     }
 
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode) {
             case Input.Keys.RIGHT:
-                pacman.changeMovement(Movement.RIGHT);
+                pacman.changeMovement(Direction.RIGHT);
                 break;
             case Input.Keys.LEFT:
-                pacman.changeMovement(Movement.LEFT);
+                pacman.changeMovement(Direction.LEFT);
                 break;
             case Input.Keys.UP:
-                pacman.changeMovement(Movement.UP);
+                pacman.changeMovement(Direction.UP);
                 break;
             case Input.Keys.DOWN:
-                pacman.changeMovement(Movement.DOWN);
+                pacman.changeMovement(Direction.DOWN);
                 break;
         }
 
@@ -135,5 +134,6 @@ public class Play extends InputAdapter implements Screen {
         coin.dispose();
         map.dispose();
         stage.dispose();
+        pacman.dispose();
     }
 }

@@ -1,4 +1,4 @@
-package com.mpr.Tools;
+package com.mpr.Tools.map;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
+import com.mpr.Tools.Constants;
 
 public class MapLoader {
     private String path;

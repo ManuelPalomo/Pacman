@@ -1,6 +1,6 @@
 package com.mpr.actors;
 
-public enum Movement {
+public enum Direction {
     UP(0),
     DOWN(1),
     RIGHT(2),
@@ -9,7 +9,7 @@ public enum Movement {
 
     private final int index;
 
-    Movement(int index) {
+    Direction(int index) {
         this.index = index;
     }
 }

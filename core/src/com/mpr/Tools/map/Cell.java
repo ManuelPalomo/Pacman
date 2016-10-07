@@ -1,4 +1,4 @@
-package com.mpr.Tools;
+package com.mpr.Tools.map;
 
 public enum Cell {
 
