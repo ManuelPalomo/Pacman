@@ -23,8 +23,8 @@ public class MapLoader {
         return map;
     }
 
-    public Cell[][] getCellMap() {
-        Cell[][] cellMap = initializeCellArray();
+    public CellMap getCellMap() {
+        CellMap cellMap = new CellMap(initializeCellArray());
         fillCellMapWithLayer(cellMap, 3, Cell.COIN);
         fillCellMapWithLayer(cellMap, 2, Cell.WALL);
         return cellMap;
@@ -41,14 +41,14 @@ public class MapLoader {
         return cellMap;
     }
 
-    private void fillCellMapWithLayer(Cell[][] cellMap, int layerIndex, Cell cell) {
+    private void fillCellMapWithLayer(CellMap cellMap, int layerIndex, Cell cell) {
         MapLayer layer = map.getLayers().get(layerIndex);
         MapObjects objects = layer.getObjects();
 
         for (MapObject object : objects) {
             float positionX = (Float) object.getProperties().get("x");
             float positionY = (Float) object.getProperties().get("y");
-            cellMap[Math.round(positionX / Constants.TILESIZE)][Math.round(positionY / Constants.TILESIZE)] = cell;
+            cellMap.setCell(Math.round(positionX / Constants.TILESIZE), Math.round(positionY / Constants.TILESIZE), cell);
         }
     }
 

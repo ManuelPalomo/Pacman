@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mpr.PacmanGame;
 import com.mpr.Tools.map.Cell;
 import com.mpr.Tools.Constants;
+import com.mpr.Tools.map.CellMap;
 import com.mpr.Tools.map.MapLoader;
 import com.mpr.actors.Direction;
 import com.mpr.actors.pacman.Pacman;
@@ -31,7 +32,7 @@ public class Play extends InputAdapter implements Screen {
     Pacman pacman;
 
     TiledMap map;
-    Cell[][] cellMap;
+    CellMap cellMap;
     TiledMapRenderer tiledMapRenderer;
 
     public Play(PacmanGame game) {
@@ -96,9 +97,9 @@ public class Play extends InputAdapter implements Screen {
         stage.act();
 
         game.batch.begin();
-        for (int x = 0; x < cellMap.length; x++) {
-            for (int y = 0; y < cellMap[x].length; y++) {
-                if (cellMap[x][y] == Cell.COIN) {
+        for (int x = 0; x < cellMap.getCells().length; x++) {
+            for (int y = 0; y < cellMap.getCells()[x].length; y++) {
+                if (cellMap.getCell(x, y) == Cell.COIN) {
                     game.batch.draw(coin, x * Constants.TILESIZE, y * Constants.TILESIZE);
                 }
             }

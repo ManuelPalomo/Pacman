@@ -3,17 +3,17 @@ package com.mpr.actors.pacman;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.mpr.Tools.map.Cell;
+import com.mpr.Tools.map.CellMap;
 import com.mpr.actors.Direction;
 import com.mpr.actors.MovementComponent;
 
 public class Pacman extends Actor {
-    private Cell[][] cellMap;
+    private CellMap cellMap;
     private Texture texture;
     private MovementComponent movement;
 
 
-    public Pacman(float x, float y, Cell[][] cellMap) {
+    public Pacman(float x, float y, CellMap cellMap) {
         this.setX(x);
         this.setY(y);
         this.cellMap = cellMap;
@@ -28,6 +28,7 @@ public class Pacman extends Actor {
     @Override
     public void act(float delta) {
         movement.move();
+
         super.act(delta);
     }
 
