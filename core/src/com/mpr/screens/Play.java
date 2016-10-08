@@ -93,6 +93,11 @@ public class Play extends InputAdapter implements Screen {
         int[] backgroundLayer = {0, 3};
         tiledMapRenderer.render(backgroundLayer);
 
+        if(cellMap.allCoinsEaten()){
+            game.setScreen(new Play(game));
+            this.dispose();
+        }
+
 
         stage.act();
 
