@@ -20,6 +20,7 @@ import com.mpr.Tools.map.CellMap;
 import com.mpr.Tools.map.MapLoader;
 import com.mpr.actors.Direction;
 import com.mpr.actors.pacman.Pacman;
+import com.mpr.ai.NodeMap;
 
 public class Play extends InputAdapter implements Screen {
     private PacmanGame game;
@@ -48,7 +49,7 @@ public class Play extends InputAdapter implements Screen {
         MapLoader loader = new MapLoader("pacman.tmx");
         map = loader.getTiledMap();
         cellMap = loader.getCellMap();
-
+        
         stage = new Stage(gamePort, game.batch);
         pacman = new Pacman(32f, 24f, cellMap);
         stage.addActor(pacman);
@@ -93,7 +94,7 @@ public class Play extends InputAdapter implements Screen {
         int[] backgroundLayer = {0, 3};
         tiledMapRenderer.render(backgroundLayer);
 
-        if(cellMap.allCoinsEaten()){
+        if (cellMap.allCoinsEaten()) {
             game.setScreen(new Play(game));
             this.dispose();
         }
