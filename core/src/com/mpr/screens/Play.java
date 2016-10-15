@@ -20,7 +20,11 @@ import com.mpr.Tools.map.CellMap;
 import com.mpr.Tools.map.MapLoader;
 import com.mpr.actors.Direction;
 import com.mpr.actors.pacman.Pacman;
+import com.mpr.ai.AStarPathFinder;
+import com.mpr.ai.Node;
 import com.mpr.ai.NodeMap;
+
+import java.util.LinkedList;
 
 public class Play extends InputAdapter implements Screen {
     private PacmanGame game;
@@ -28,13 +32,18 @@ public class Play extends InputAdapter implements Screen {
     private Viewport gamePort;
 
     Texture coin;
+    Texture pacmanTexture;
 
     Stage stage;
     Pacman pacman;
 
     TiledMap map;
     CellMap cellMap;
+    NodeMap nodeMap;
     TiledMapRenderer tiledMapRenderer;
+    AStarPathFinder finder;
+    LinkedList<Node> pathTest;
+
 
     public Play(PacmanGame game) {
         this.game = game;
@@ -45,11 +54,16 @@ public class Play extends InputAdapter implements Screen {
         gamePort = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         coin = new Texture("coin.png");
+        pacmanTexture = new Texture("pacman.png");
 
         MapLoader loader = new MapLoader("pacman.tmx");
         map = loader.getTiledMap();
         cellMap = loader.getCellMap();
-        
+        nodeMap = new NodeMap(cellMap.getCells());
+        finder = new AStarPathFinder(nodeMap);
+        pathTest = finder.findPath(1, 9, 25, 24);
+
+
         stage = new Stage(gamePort, game.batch);
         pacman = new Pacman(32f, 24f, cellMap);
         stage.addActor(pacman);
@@ -109,6 +123,11 @@ public class Play extends InputAdapter implements Screen {
                     game.batch.draw(coin, x * Constants.TILESIZE, y * Constants.TILESIZE);
                 }
             }
+        }
+
+        for (Node node : pathTest) {
+            game.batch.draw(pacmanTexture, node.getX() * Constants.TILESIZE, node.getY() * Constants.TILESIZE);
+
         }
         game.batch.end();
 

@@ -77,6 +77,7 @@ public class MovementComponent {
     }
 
     public void eatCoin(int x,int y){
+        System.out.println(x+""+y);
         if(cellMap.getCell(x,y)==Cell.COIN){
             cellMap.eatCoin(x,y);
         }
