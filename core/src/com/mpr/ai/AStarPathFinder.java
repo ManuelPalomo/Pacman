@@ -53,7 +53,7 @@ public class AStarPathFinder {
                 }
 
                 double actualG = data.getG(neighbor.getId());
-                double nextG = actualG + ((neighbor.getX() - actualNode.getX() == 0 || neighbor.getY() - actualNode.getY() == 0) ? 1 : sqrt(2));
+                double nextG = actualG + (sqrt((neighbor.getX() - actualNode.getX()) + (neighbor.getY() - actualNode.getY())));
 
                 if (!openSet.contains(neighbor)) {
                     openSet.add(neighbor);

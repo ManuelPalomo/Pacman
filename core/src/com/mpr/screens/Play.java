@@ -62,6 +62,7 @@ public class Play extends InputAdapter implements Screen {
         nodeMap = new NodeMap(cellMap.getCells());
         finder = new AStarPathFinder(nodeMap);
         pathTest = finder.findPath(1, 9, 25, 24);
+        System.out.println(pathTest.size());
 
 
         stage = new Stage(gamePort, game.batch);
