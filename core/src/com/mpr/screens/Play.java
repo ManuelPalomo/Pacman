@@ -19,6 +19,8 @@ import com.mpr.Tools.Constants;
 import com.mpr.Tools.map.CellMap;
 import com.mpr.Tools.map.MapLoader;
 import com.mpr.actors.Direction;
+import com.mpr.actors.ghosts.AiComponent;
+import com.mpr.actors.ghosts.Ghost;
 import com.mpr.actors.pacman.Pacman;
 import com.mpr.ai.AStarPathFinder;
 import com.mpr.ai.Node;
@@ -36,6 +38,8 @@ public class Play extends InputAdapter implements Screen {
 
     Stage stage;
     Pacman pacman;
+    AiComponent ai;
+    Ghost ghost;
 
     TiledMap map;
     CellMap cellMap;
@@ -61,13 +65,17 @@ public class Play extends InputAdapter implements Screen {
         cellMap = loader.getCellMap();
         nodeMap = new NodeMap(cellMap.getCells());
         finder = new AStarPathFinder(nodeMap);
-        pathTest = finder.findPath(1, 9, 25, 24);
-        System.out.println(pathTest.size());
+
 
 
         stage = new Stage(gamePort, game.batch);
         pacman = new Pacman(32f, 24f, cellMap);
+
+        ai = new AiComponent(finder,pacman);
+        ghost = new Ghost(new Texture("blinky.png"),73f,48f,cellMap,ai);
+
         stage.addActor(pacman);
+        stage.addActor(ghost);
 
         tiledMapRenderer = new OrthogonalTiledMapRenderer(map, game.batch);
     }
@@ -126,10 +134,10 @@ public class Play extends InputAdapter implements Screen {
             }
         }
 
-        for (Node node : pathTest) {
-            game.batch.draw(pacmanTexture, node.getX() * Constants.TILESIZE, node.getY() * Constants.TILESIZE);
-
-        }
+//       for (Node node : pathTest) {
+//           game.batch.draw(pacmanTexture, node.getX() * Constants.TILESIZE, node.getY() * Constants.TILESIZE);
+//
+//        }
         game.batch.end();
 
         stage.draw();
