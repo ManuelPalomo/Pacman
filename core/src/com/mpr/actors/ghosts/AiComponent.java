@@ -22,6 +22,7 @@ public class AiComponent {
         LinkedList<Node> pathToPacman = pathFinder.findPath(actualX, actualY, pacman.getGridPositionX(), pacman.getGridPositionY());
 
         if (pathToPacman == null || pathToPacman.size() == 1) {
+            System.out.println("null");
             return direction;
         }
         int nextX = pathToPacman.get(1).getX();
@@ -68,6 +69,6 @@ public class AiComponent {
                 return Direction.LEFT;
 
         }
-        return Direction.STILL;
+        return Direction.LEFT;
     }
 }

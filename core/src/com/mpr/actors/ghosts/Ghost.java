@@ -26,7 +26,6 @@ public class Ghost extends Actor {
     @Override
     public void act(float delta) {
         movement.changeMovement(ai.decideNextDirection(movement.getGridPositionX(), movement.getGridPositionY(), movement.getDirection()));
-        System.out.println(movement.getDirection());
         movement.move();
         super.act(delta);
     }

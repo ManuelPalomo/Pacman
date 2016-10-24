@@ -23,10 +23,8 @@ import com.mpr.actors.ghosts.AiComponent;
 import com.mpr.actors.ghosts.Ghost;
 import com.mpr.actors.pacman.Pacman;
 import com.mpr.ai.AStarPathFinder;
-import com.mpr.ai.Node;
 import com.mpr.ai.NodeMap;
 
-import java.util.LinkedList;
 
 public class Play extends InputAdapter implements Screen {
     private PacmanGame game;
@@ -34,19 +32,16 @@ public class Play extends InputAdapter implements Screen {
     private Viewport gamePort;
 
     Texture coin;
-    Texture pacmanTexture;
 
     Stage stage;
     Pacman pacman;
     AiComponent ai;
-    Ghost ghost;
 
     TiledMap map;
     CellMap cellMap;
     NodeMap nodeMap;
     TiledMapRenderer tiledMapRenderer;
     AStarPathFinder finder;
-    LinkedList<Node> pathTest;
 
 
     public Play(PacmanGame game) {
@@ -58,7 +53,6 @@ public class Play extends InputAdapter implements Screen {
         gamePort = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         coin = new Texture("coin.png");
-        pacmanTexture = new Texture("pacman.png");
 
         MapLoader loader = new MapLoader("pacman.tmx");
         map = loader.getTiledMap();
@@ -67,13 +61,11 @@ public class Play extends InputAdapter implements Screen {
         finder = new AStarPathFinder(nodeMap);
 
 
-
         stage = new Stage(gamePort, game.batch);
         pacman = new Pacman(32f, 24f, cellMap);
 
-        ai = new AiComponent(finder,pacman);
-        ghost = new Ghost(new Texture("blinky.png"),73f,48f,cellMap,ai);
-
+        ai = new AiComponent(finder, pacman);
+        Ghost ghost = new Ghost(new Texture("blinky.png"), 110f, 170f, cellMap, ai);
         stage.addActor(pacman);
         stage.addActor(ghost);
 
@@ -110,7 +102,6 @@ public class Play extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-
         camera.update();
 
         tiledMapRenderer.setView(camera);
@@ -121,7 +112,6 @@ public class Play extends InputAdapter implements Screen {
             game.setScreen(new Play(game));
             this.dispose();
         }
-
 
         stage.act();
 
@@ -134,14 +124,8 @@ public class Play extends InputAdapter implements Screen {
             }
         }
 
-//       for (Node node : pathTest) {
-//           game.batch.draw(pacmanTexture, node.getX() * Constants.TILESIZE, node.getY() * Constants.TILESIZE);
-//
-//        }
         game.batch.end();
-
         stage.draw();
-
     }
 
     @Override

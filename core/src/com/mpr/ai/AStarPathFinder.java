@@ -3,6 +3,7 @@ package com.mpr.ai;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 
@@ -25,7 +26,7 @@ public class AStarPathFinder {
         Node endNode = nodeMap.getNode(endX, endY);
         data.setF(startNode.getId(), manhattanHeuristic(startNode, endNode));
 
-        LinkedList<Node> closedSet = new LinkedList<Node>();
+        HashSet<Node> closedSet = new HashSet<Node>();
         PriorityQueue<Node> openSet = new PriorityQueue<Node>(new Comparator<Node>() {
             @Override
             public int compare(Node node, Node t1) {
@@ -63,6 +64,10 @@ public class AStarPathFinder {
                 cameFrom.put(neighbor.getId(), actualNode.getId());
                 data.setG(neighbor.getId(), nextG);
                 data.setF(neighbor.getId(), data.getG(neighbor.getId()) + manhattanHeuristic(neighbor, endNode));
+                if (openSet.contains(neighbor)) {
+                    openSet.remove(neighbor);
+                    openSet.add(neighbor);
+                }
 
             }
         }
